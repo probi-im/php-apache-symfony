@@ -20,6 +20,10 @@ RUN apt-get update -qq && \
 # PHP Extensions
 RUN docker-php-ext-configure zip && \
     docker-php-ext-install -j$(nproc) intl opcache pdo_mysql zip
+
+# Enable default production configuration
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+# Add our custom configuration
 COPY conf/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Apache
